@@ -19,8 +19,9 @@ specifiers:
   eslint-plugin-jsx-a11y: ^6.5.1
   eslint-plugin-react: ^7.28.0
   eslint-plugin-react-hooks: ^4.3.0
-  husky: ^8.0.1
+  husky: ^8.0.0
   path: ^0.12.7
+  prettier: ^2.7.1
   react: ^18.2.0
   react-dom: ^18.2.0
   style-loader: ^3.3.1
@@ -53,6 +54,7 @@ devDependencies:
   eslint-plugin-react-hooks: 4.6.0_eslint@8.18.0
   husky: 8.0.1
   path: 0.12.7
+  prettier: 2.7.1
   style-loader: 3.3.1_webpack@5.73.0
   webpack: 5.73.0_webpack-cli@4.10.0
   webpack-cli: 4.10.0_hnfkmnck6ti4dm6ulhhz44v2ju
@@ -4076,6 +4078,12 @@ packages:
   /prelude-ls/1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+    dev: true
+
+  /prettier/2.7.1:
+    resolution: {integrity: sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
     dev: true
 
   /process-nextick-args/2.0.1:
