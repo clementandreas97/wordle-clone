@@ -1,23 +1,24 @@
 // React
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 // Styles
-import "./index.css";
+import './index.css';
 
 const WORD_LENGTH = 5;
 
+// TODO: Move this to a separate component
 const Line = ({ guess, isEntered, solution }) => {
   const tiles = [];
   for (let i = 0; i < WORD_LENGTH; i++) {
     const currChar = guess[i];
-    let tileClass = "tile";
+    let tileClass = 'tile';
     if (isEntered) {
       if (currChar === solution[i]) {
-        tileClass += " correct";
+        tileClass += ' correct';
       } else if (solution.includes(currChar)) {
-        tileClass += " contains";
+        tileClass += ' contains';
       } else {
-        tileClass += " incorrect";
+        tileClass += ' incorrect';
       }
     }
     tiles.push(
@@ -31,20 +32,22 @@ const Line = ({ guess, isEntered, solution }) => {
 
 const App = () => {
   const [guesses, setGuesses] = useState(Array(6).fill(null));
-  const [currentGuess, setCurrentGuess] = useState("");
+  const [currentGuess, setCurrentGuess] = useState('');
   const [isFinished, setIsFinished] = useState(false);
   // TODO: Change this to fetch/randomise from a set of words
-  const [solution, _] = useState("world");
+  const [solution] = useState('world');
 
   // Moving this outside of the useEffect, because it was capturing the
-  // currentGuess when it is first initialised, which is empty.
+  // currentGuess when it is first initialised, which is empty. The fix
+  // can be adding currentGuess to the dependency array, but this means
+  // the event listener will get added and removed everytime the currentGuess
+  // changed.
   const handleType = (event) => {
-    console.log("handleType", currentGuess);
     if (isFinished) {
       return;
     }
     const { key } = event || {};
-    if (key === "Enter") {
+    if (key === 'Enter') {
       if (currentGuess.length !== WORD_LENGTH) return;
       const newGuesses = [...guesses];
       const insertIdx = newGuesses.findIndex((val) => val === null);
@@ -52,12 +55,12 @@ const App = () => {
       setGuesses(newGuesses);
       if (currentGuess === solution) {
         setIsFinished(true);
-        setCurrentGuess("");
+        setCurrentGuess('');
         return;
       }
-      setCurrentGuess("");
+      setCurrentGuess('');
     }
-    if (key === "Backspace") {
+    if (key === 'Backspace') {
       setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
       return;
     }
@@ -69,9 +72,9 @@ const App = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("keydown", handleType);
+    window.addEventListener('keydown', handleType);
 
-    return () => window.removeEventListener("keydown", handleType);
+    return () => window.removeEventListener('keydown', handleType);
   }, [handleType]);
 
   return (
@@ -79,12 +82,11 @@ const App = () => {
       <div>Wordle</div>
       <div className="tilesContainer">
         {guesses.map((guess, idx) => {
-          const isCurrentGuess =
-            idx === guesses.findIndex((val) => val === null);
+          const isCurrentGuess = idx === guesses.findIndex((val) => val === null);
           return (
             <Line
-              key={idx}
-              guess={isCurrentGuess ? currentGuess : guess ?? ""}
+              key={`line-${idx}`}
+              guess={isCurrentGuess ? currentGuess : guess ?? ''}
               isEntered={!isCurrentGuess && guess}
               solution={solution}
             />

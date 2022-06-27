@@ -1,8 +1,6 @@
 // React
-import React from "react";
+import React from 'react';
 
-const Tiles = (props) => {
-  return <div></div>;
-};
+const Tiles = () => <div />;
 
 export default Tiles;
