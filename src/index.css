@@ -17,3 +17,15 @@
   justify-content: center;
   align-items: center;
 }
+
+.correct {
+  background-color: lightgreen;
+}
+
+.contains {
+  background-color: yellow;
+}
+
+.incorrect {
+  background-color: lightgray;
+}
