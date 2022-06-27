@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // Styles
 import './index.css';
@@ -42,7 +42,7 @@ const App = () => {
   // can be adding currentGuess to the dependency array, but this means
   // the event listener will get added and removed everytime the currentGuess
   // changed.
-  const handleType = (event) => {
+  const handleType = useCallback((event) => {
     if (isFinished) {
       return;
     }
@@ -68,8 +68,12 @@ const App = () => {
     const keyOrd = event.key.toLowerCase().charCodeAt(0);
     const isLetter = keyOrd >= 65 && keyOrd <= 123;
     if (!isLetter) return;
-    setCurrentGuess(currentGuess + key);
-  };
+    // Since we want this function to only created once thus the empty deps array
+    // with the addition of useCallback, we need to have a way to reference the old
+    // currentGuess. Since if we don't do it this way, then it means the function will
+    // refer the currentGuess when it is first created.
+    setCurrentGuess((oldCurrentGuess) => oldCurrentGuess + key);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('keydown', handleType);
