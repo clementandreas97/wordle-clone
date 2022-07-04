@@ -57,7 +57,6 @@ const App = () => {
         const insertIdx = newGuesses.findIndex((val) => val === null);
         newGuesses[insertIdx] = currentGuess;
         setGuesses(newGuesses);
-        console.log(newGuesses);
         if (currentGuess === solution) {
           setIsFinished(true);
           setCurrentGuess('');
@@ -84,12 +83,8 @@ const App = () => {
 
   useEffect(() => {
     window.addEventListener('keydown', handleType);
-    console.log('add listener');
 
-    return () => {
-      console.log('remove listener');
-      window.removeEventListener('keydown', handleType);
-    };
+    return () => window.removeEventListener('keydown', handleType);
   }, [handleType]);
 
   return (
